@@ -1,0 +1,69 @@
+import re
+import random
+
+sentence = " "
+
+def mks(sentence):
+    text =  sentence
+    def start_word(text):
+        textlen = re.sub(r'[><"=,./#?&;()|:-]+', '', text).lower()
+        textlen = re.sub(r'us', 'usa', textlen).split()
+        startword = textlen[0]
+
+        return startword
+
+    def end_word(text):
+        textlen = re.sub(r'[><"=,./#?&;()|:-]+', '', text).lower()
+        textlen = re.sub(r'us', 'usa', textlen).split()
+        endword = textlen[-2]
+
+        return endword
+
+    def wordchain(text):
+        text = re.sub(r'[><"=,./#?&;()|:-]+', '', text).lower()
+        text = re.sub(r'us', 'usa', text).split()
+
+        first_word = []
+        after_word = []
+        for x, y in zip(text, text[1:]):
+            first_word.append(x)
+            after_word.append(y)
+
+        word_chain = {}
+        for key, value in zip(first_word, after_word):
+            try:
+                word_chain[key].append(value)
+            except:
+                word_chain[key] = []
+                word_chain[key].append(value)
+        return word_chain
+
+    def sentencecreate(text):
+        chaindict = wordchain(text)
+        chaindict_keys = list(chaindict.keys())
+
+        startword = start_word(text)
+        endword =  end_word(text)
+
+        words = []
+        words.append(startword)
+        z = chaindict.get(startword)
+
+        for x in chaindict_keys:
+            y = random.choice(z)
+            words.append(y)
+            if y == endword:
+                z = chaindict.get(y)
+                z = random.choice(z)
+                words.append(z)
+                break
+            z = chaindict.get(y)
+
+        sentence = ' '.join(words)
+
+        return sentence
+    sentence = sentencecreate(text)
+
+    return sentence
+
+    
