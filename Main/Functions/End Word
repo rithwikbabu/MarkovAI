@@ -1,0 +1,6 @@
+def end_word(text):
+    textlen = re.sub(r'[><"=,./#?&;()|:-]+', '', text).lower()
+    textlen = re.sub(r'us', 'usa', textlen).split()
+    endword = textlen[-2]
+
+    return endword
