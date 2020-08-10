@@ -1,0 +1,6 @@
+def start_word(text):
+    textlen = re.sub(r'[><"=,./#?&;()|:-]+', '', text).lower()
+    textlen = re.sub(r'us', 'usa', textlen).split()
+    startword = textlen[0]
+
+    return startword
