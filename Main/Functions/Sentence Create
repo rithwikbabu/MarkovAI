@@ -1,0 +1,28 @@
+import re
+import random
+
+def sentencecreate(text):
+    chaindict = wordchain(text)
+    chaindict_keys = list(chaindict.keys())
+
+    start_word = start_word(text)
+    end_word =  end_word(text)
+
+    words = []
+    words.append(start_word)
+    z = chaindict.get(start_word)
+
+    for x in chaindict_keys:
+        y = random.choice(z)
+        words.append(y)
+        print(z)
+        if y == end_word:
+            z = chaindict.get(y)
+            z = random.choice(z)
+            words.append(z)
+            break
+        z = chaindict.get(y)
+
+    sentence = ' '.join(words)
+
+    return sentence
