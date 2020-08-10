@@ -1,0 +1,27 @@
+import re
+import random
+
+text = 'list'
+def wordchain(text):
+    word_chain = {}
+    for fil in text:
+        sent = re.sub(r'U.S.', 'usa', fil).lower()
+        sent = re.sub(r'[><"=,./#?&;()|:-]+', '', sent).split()
+
+        first_word = []
+        after_word = []
+        for x, y in zip(sent, sent[1:]):
+            first_word = []
+            after_word = []
+            first_word.append(x)
+            after_word.append(y)
+
+            for key, value in zip(first_word, after_word):
+                try:
+                    word_chain[key].append(value)
+                except:
+                    word_chain[key] = []
+                    word_chain[key].append(value)
+    return word_chain
+
+print(wordchain(text))
