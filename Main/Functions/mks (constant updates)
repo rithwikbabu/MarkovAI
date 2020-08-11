@@ -51,9 +51,10 @@ def mks(sentence):
             chaindict = wordchain(text)
             chaindict_keys = list(chaindict.keys())
 
-            words = []
-            words.append(strt)
-            z = chaindict.get(strt)
+        start = random.choice(start_word(text))
+        words = []
+        words.append(start)
+        z = chaindict.get(start)
 
             for x in chaindict_keys:
                 y = random.choice(z)
