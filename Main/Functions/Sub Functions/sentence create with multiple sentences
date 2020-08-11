@@ -57,6 +57,8 @@ def end_word(text):
 
     return endwords
 
+############################# new code below ################################# 
+
 def sentencecreate(text):
     for strt, nd in zip(start_word(text), end_word(text)):
         chaindict = wordchain(text)
@@ -69,10 +71,7 @@ def sentencecreate(text):
         for x in chaindict_keys:
             y = random.choice(z)
             words.append(y)
-            if y == nd:
-                z = chaindict.get(y)
-                z = random.choice(z)
-                words.append(z)
+            if y not in chaindict:
                 break
             z = chaindict.get(y)
 
