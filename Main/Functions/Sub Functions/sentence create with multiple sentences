@@ -1,0 +1,82 @@
+import re
+import random
+
+text = ['text']
+
+def wordchain(text):
+    word_chain = {}
+    for fil in text:
+        sent = re.sub(r'U.S.', 'usa', fil).lower()
+        sent = re.sub(r'[><"=,./#?&;()|:-]+', '', sent).split()
+
+        first_word = []
+        after_word = []
+        for x, y in zip(sent, sent[1:]):
+            first_word = []
+            after_word = []
+            first_word.append(x)
+            after_word.append(y)
+
+            for key, value in zip(first_word, after_word):
+                try:
+                    word_chain[key].append(value)
+                except:
+                    word_chain[key] = []
+                    word_chain[key].append(value)
+    return word_chain
+
+    def start_word(text):
+        text = re.sub(r'U.S.', 'usa', text).lower()
+        text = re.sub(r'[><"=,./#?&;()|:-]+', '', text).split()
+        startword = text[0]
+
+        return startword
+
+    def end_word(text):
+        text = re.sub(r'U.S.', 'usa', text).lower()
+        text = re.sub(r'[><"=,./#?&;()|:-]+', '', text).split()
+        endword = text[-2]
+
+        return endword
+
+def start_word(text):
+    startwords = []
+    for x in text:
+        text = re.sub(r'U.S.', 'usa', x).lower()
+        text = re.sub(r'[><"=,./#?&;()|:-]+', '', text).split()
+        startwords.append(text[0])
+
+    return startwords
+
+def end_word(text):
+    for x in text:
+        endwords = []
+        text = re.sub(r'U.S.', 'usa', x).lower()
+        text = re.sub(r'[><"=,./#?&;()|:-]+', '', text).split()
+        endwords.append(text[-2])
+
+    return endwords
+
+def sentencecreate(text):
+    for strt, nd in zip(start_word(text), end_word(text)):
+        chaindict = wordchain(text)
+        chaindict_keys = list(chaindict.keys())
+
+        words = []
+        words.append(strt)
+        z = chaindict.get(strt)
+
+        for x in chaindict_keys:
+            y = random.choice(z)
+            words.append(y)
+            if y == nd:
+                z = chaindict.get(y)
+                z = random.choice(z)
+                words.append(z)
+                break
+            z = chaindict.get(y)
+
+    sentence = ' '.join(words)
+
+    return sentence
+
